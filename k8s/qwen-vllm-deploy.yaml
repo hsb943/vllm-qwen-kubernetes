@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qwen-vllm
+  namespace: ml
+spec:
+  replicas: 1
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+
+  selector:
+    matchLabels:
+      app: qwen-vllm
+
+  template:
+    metadata:
+      labels:
+        app: qwen-vllm
+    spec:
+      containers:
+        - name: vllm
+          image: anonymous40/vllm-qwen-working:latest
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8080
+
+          envFrom:
+            - configMapRef:
+                name: qwen-vllm-config
+
+          volumeMounts:
+            - name: hf-cache
+              mountPath: /models/hf
+
+          startupProbe:
+            httpGet:
+              path: /v1/models
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 120
+
+          readinessProbe:
+            httpGet:
+              path: /v1/models
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          resources:
+            requests:
+              cpu: "1"
+              memory: "2Gi"
+              nvidia.com/gpu: 1
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+              nvidia.com/gpu: 1
+
+      volumes:
+        - name: hf-cache
+          persistentVolumeClaim:
+            claimName: hf-cache-pvc

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qwen-vllm-config
+  namespace: ml
+data:
+  MODEL_NAME: "Qwen/Qwen2.5-0.5B-Instruct"
+  MAX_MODEL_LEN: "512"
+  DTYPE: "float16"
+  GPU_MEMORY_UTILIZATION: "0.70"
+  MAX_NUM_SEQS: "1"
+  HF_HOME: "/models/hf"
+  TRANSFORMERS_CACHE: "/models/hf/transformers"
+  HUGGINGFACE_HUB_CACHE: "/models/hf/hub"
