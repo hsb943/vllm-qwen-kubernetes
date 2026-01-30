@@ -80,6 +80,15 @@ vllm-qwen-kubernetes/
 
 5.4 No mock components are used. All manifests correspond to running workloads.
 
+<img width="1003" height="199" alt="1" src="https://github.com/user-attachments/assets/3981d9ef-acde-48b7-a334-b8de4ea89b40" />
+
+<img width="1558" height="160" alt="2" src="https://github.com/user-attachments/assets/48622039-9dc4-437e-a26d-c35173c39f57" />
+
+<img width="669" height="228" alt="3" src="https://github.com/user-attachments/assets/6088d6da-d8d2-438f-8333-e1069799b380" />
+
+
+
+
 ---
 
 # 6. Kubernetes Deployment Details
